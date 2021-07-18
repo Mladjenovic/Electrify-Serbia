@@ -1,0 +1,98 @@
+<div class="main">
+  <div class="row col-md-12">
+      <div class="col col-md-3">
+        <div class="row">
+          <div class="col-md-3 form-sections">
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('resolution')">Resolutions</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('call')">Calls</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('crew')">Crew</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-9">
+          <br><br>
+          <div class="container text-center">
+          <span class="title">INCIDENT CREW</span>
+          </div>
+          <br><br>
+          <button *ngIf="userService.userData.userType ==='Dispatcher'" class="btn-new btn btn-primary" (click)="open(content)"><i class="fa fa-plus-square">&nbsp;NEW</i></button>
+          <br>
+          <table *ngIf="service.formData.crew.id" class="table text-center table-striped table-light">
+              <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Name</th>
+                      <th>Members</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>{{service.formData.crew.id}}</td>
+                      <td>{{service.formData.crew.name}}</td>
+                      <td>
+                          <p *ngFor="let item of service.formData.crew.members">
+                              {{item.name}}&nbsp;{{item.surName}}
+                          </p>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <ng-template #content let-modal>
+          <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Select Crew</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form #form = "ngForm">
+                  <div class="form-group">
+                      <div *ngIf="crewService.list.length !== 0" class="scrollable">
+                          <table class="table text-center table-striped table-hover table-light">
+                          <thead class="table-dark">
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Name</th>
+                                  <th>&nbsp;</th>
+                              </tr>
+                          </thead>
+                          <tr *ngFor="let crew of crewService.list">
+                              <td>{{crew.id}}</td>
+                              <td>{{crew.name}}</td>
+                              <td *ngIf="!service.formData.crew">
+                              <input class="form-check-input" name="crew" type="checkbox" style="cursor: pointer;" (change)="onChange($event,crew)">
+                              </td>
+                              <td *ngIf="service.formData.crew">
+                                  <input *ngIf="service.formData.crew.id === crew.id" class="form-check-input" name="crew" checked type="checkbox" style="cursor: pointer;" (change)="onChange($event,crew)">
+                                  <input *ngIf="service.formData.crew.id !== crew.id" class="form-check-input" name="crew" type="checkbox" style="cursor: pointer;" (change)="onChange($event,crew)">
+                              </td>
+                          </tr>
+                          </table>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-lg" (click)="add()">Close</button>
+          </div>
+          </ng-template>
+      </div>
+  </div>
+</div>
+

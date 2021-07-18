@@ -1,0 +1,78 @@
+<div class="main">
+  <div class="row col-md-12">
+    <div class="col col-md-3">
+      <div class="row">
+        <div class="col-md-3 form-sections">
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('history')">History</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('checklist')">Checklist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-9">
+      <br /><br />
+      <div class="container text-center">
+        <span class="title">SAFETY DOCUMENT CHECKLIST</span>
+      </div>
+      <br /><br />
+      <form autocomplete="on" novalidate #form="ngForm">
+          <div class="form-group">
+            <mat-slide-toggle
+              [disabled]="!canEdit"
+              (change)="change()"
+              color="primary"
+              name="operations"
+              #operations="ngModel"
+              [(ngModel)]="service.formData.operationsComplited"
+              ><b>All work operations complited?</b></mat-slide-toggle
+            >
+          </div>
+          <div class="form-group">
+            <mat-slide-toggle
+              [disabled]="!canEdit"
+              (change)="change()"
+              color="primary"
+              name="tags"
+              #tags="ngModel"
+              [(ngModel)]="service.formData.tagsRemoved"
+              ><b>All tags removed?</b></mat-slide-toggle
+            >
+          </div>
+          <div class="form-group">
+            <mat-slide-toggle
+              [disabled]="!canEdit"
+              (change)="change()"
+              color="primary"
+              name="ground"
+              #ground="ngModel"
+              [(ngModel)]="service.formData.groundingRemoved"
+              ><b>Grounding removed?</b></mat-slide-toggle
+            >
+          </div>
+          <div class="form-group">
+            <mat-slide-toggle
+              [disabled]="!canEdit"
+              (change)="change()"
+              color="primary"
+              name="ready"
+              #ready="ngModel"
+              [(ngModel)]="service.formData.readyForService"
+              ><b>Ready for service</b></mat-slide-toggle
+            >
+          </div>
+      </form>
+    </div>
+  </div>
+</div>

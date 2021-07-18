@@ -1,0 +1,13 @@
+.dashboard .page-title {
+  padding: 0 25px;
+}
+
+.dashboard .dashboard-header-section {
+  padding: 40px;
+}
+
+.dashboard .dashboard-header-section .dashboard-inner-section {
+  border: 1px solid #8d7a7a;
+  padding: 15px 25px;
+}
+/*# sourceMappingURL=dashboard.component.css.map */

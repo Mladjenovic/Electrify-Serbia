@@ -1,0 +1,213 @@
+<div class="">
+  <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px">
+      <h4 class="card-title mt-3 text-center">Create Account</h4>
+      <p class="text-center">Get started with your free account</p>
+      <p>
+        <a href="" class="btn btn-block btn-twitter">
+          <i class="fa fa-twitter" aria-hidden="true"></i>   Login via
+          Twitter</a
+        >
+        <a href="" class="btn btn-block btn-facebook">
+          <i class="fa fa-facebook" aria-hidden="true"></i>   Login via
+          facebook</a
+        >
+      </p>
+      <p class="divider-text">
+        <span class="bg-light">OR</span>
+      </p>
+      <form
+        autocomplete="on"
+        novalidaten
+        #form="ngForm"
+        (submit)="onSubmit(form)"
+      >
+        <input type="hidden" name="userId" [value]="service.userData.userId" />
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input
+            name="username"
+            class="form-control"
+            placeholder="Username"
+            type="text"
+            #username="ngModel"
+            [(ngModel)]="service.userData.username"
+            required
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          </div>
+          <input
+            class="form-control"
+            placeholder="Password"
+            type="password"
+            name="password"
+            #password="ngModel"
+            [(ngModel)]="service.userData.password"
+            required
+            minlength="8"
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input
+            name="name"
+            class="form-control"
+            placeholder="Name"
+            type="text"
+            #username="ngModel"
+            [(ngModel)]="service.userData.name"
+            required
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input
+            name="surname"
+            class="form-control"
+            placeholder="Surname"
+            type="text"
+            #username="ngModel"
+            [(ngModel)]="service.userData.surname"
+            required
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </span>
+          </div>
+          <input
+            name="email"
+            class="form-control"
+            placeholder="Email address"
+            type="email"
+            #email="ngModel"
+            [(ngModel)]="service.userData.email"
+            required
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-calendar"></i>
+            </span>
+          </div>
+          <input
+            name="dateOfBirth"
+            class="form-control"
+            placeholder="dd/mm/yyyy"
+            #dateOfBirth="ngModel"
+            [(ngModel)]="service.userData.dateOfBirth"
+            required
+            maxlength="20"
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-location-arrow"></i>
+            </span>
+          </div>
+          <input
+            class="form-control"
+            placeholder="Address"
+            name="address"
+            #address="ngModel"
+            [(ngModel)]="service.userData.address"
+            required
+          />
+        </div>
+        <!-- form-group end.// -->
+
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-user-circle-o"></i>
+            </span>
+          </div>
+          <select
+            class="custom-select"
+            required
+            name="userType"
+            #userType="ngModel"
+            [(ngModel)]="service.userData.userType"
+          >
+            <option value="Administrator">Administrator</option>
+            <option value="Worker">Worker</option>
+            <option value="Dispatcher">Dispatcher</option>
+            <option value="TeamMember">TeamMember</option>
+          </select>
+
+         
+        </div>
+        <div
+        *ngIf="service.userData.userType == 'TeamMember'"
+        class="form-group">
+        <input
+          class="form-control"
+          placeholder="Team name"
+          name="nameOfTeam"
+          #nameOfTeam="ngModel"
+          [(ngModel)]="service.userData.nameOfTeam"
+          required
+        />
+      </div>
+        <div *ngIf="service.userData.image != ''" class="form-group user-img-div" >
+          <img class="user-img" [src]="service.userData.image" />
+        </div>
+        <div class="form-group">
+          <input
+            type="file"
+            (change)="onImageChange($event)"
+            class="form-control"
+          />
+        </div>
+
+        <!-- form-group// -->
+        <div class="form-group">
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="form.invalid"
+          >
+            Create Account
+          </button>
+        </div>
+        <!-- form-group// -->
+        <p class="text-center">Have an account? <a href="/login">Log In</a></p>
+      </form>
+    </article>
+  </div>
+  <!-- card.// -->
+</div>
+<!--container end.//-->

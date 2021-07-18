@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectrifySerbiaAPI", "ElectrifySerbiaAPI\ElectrifySerbiaAPI.csproj", "{5ECF34CC-CC5E-4CAB-987F-849B70728F8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{64CC0349-E898-4A3D-ACD2-2672A3EDA706}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{051F38ED-9C32-4E34-AF6C-AFA65B741609}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ECF34CC-CC5E-4CAB-987F-849B70728F8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECF34CC-CC5E-4CAB-987F-849B70728F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECF34CC-CC5E-4CAB-987F-849B70728F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECF34CC-CC5E-4CAB-987F-849B70728F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CC0349-E898-4A3D-ACD2-2672A3EDA706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CC0349-E898-4A3D-ACD2-2672A3EDA706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CC0349-E898-4A3D-ACD2-2672A3EDA706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CC0349-E898-4A3D-ACD2-2672A3EDA706}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64CC0349-E898-4A3D-ACD2-2672A3EDA706} = {051F38ED-9C32-4E34-AF6C-AFA65B741609}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8F77302-4535-4018-B375-8E38270EBB48}
+	EndGlobalSection
+EndGlobal

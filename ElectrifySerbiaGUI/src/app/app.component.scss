@@ -1,0 +1,13 @@
+
+.content {
+    padding-top: 50px;
+}
+
+@media screen and (max-width:991px) {
+      
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

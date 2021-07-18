@@ -1,0 +1,54 @@
+.divider-text {
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.divider-text span {
+  padding: 7px;
+  font-size: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.divider-text:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  top: 55%;
+  left: 0;
+  z-index: 1;
+}
+
+.btn-facebook {
+  background-color: #405D9D;
+  color: #fff;
+}
+
+.btn-twitter {
+  background-color: #42AEEC;
+  color: #fff;
+}
+
+.user-img-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.user-img-div .user-img {
+  max-height: 200px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.input-group-text {
+  width: 40px;
+}
+/*# sourceMappingURL=register.component.css.map */

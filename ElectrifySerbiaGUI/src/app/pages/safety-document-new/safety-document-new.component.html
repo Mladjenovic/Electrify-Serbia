@@ -1,0 +1,166 @@
+<div class="main">
+  <div class="row col-md-12">
+    <div class="col col-md-3">
+      <div class="row">
+          <div class="col-md-3 form-sections">
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('history')">History</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('checklist')">Checklist</a>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <div class="col col-md-9">
+      <br /><br />
+      <div class="container text-center">
+        <span class="title">BASIC INFORMATION</span>
+      </div>
+      <br /><br />
+      <form autocomplete="on" novalidate #form="ngForm">
+        <div class="row">
+          <div class="col col-md-6">
+            <div class="form-group">
+              <label>TYPE</label>
+              <select
+                [disabled]="!canEdit"
+                class="form-control"
+                name="type"
+                #type="ngModel"
+                [(ngModel)]="service.formData.type"
+              >
+                <option value="Planned">Planned work</option>
+                <option value="Unplanned">Unplaned work</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>STATUS</label>
+              <select
+                [disabled]="!canEdit"
+                class="form-control"
+                name="status"
+                type="text"
+                #status="ngModel"
+                [(ngModel)]="service.formData.status"
+              >
+                <option value="Drafted">Drafted</option>
+                <option value="Canceled">Canceled</option>
+                <option value="Executing">Executing</option>
+                <option value="Complited">Complited</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>CREATOR</label>
+              <input
+                readonly
+                class="form-control"
+                type="text"
+                name="creator"
+                #creator="ngModel"
+                [(ngModel)]="service.formData.creator"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>CREW</label>
+              <select
+                [disabled]="!canEdit"
+                class="form-control"
+                type="text"
+                name="crew"
+                #crew="ngModel"
+                [(ngModel)]="service.formData.crew"
+              >
+                <option
+                  *ngFor="let item of crewService.list"
+                  [ngValue]="item.name"
+                >
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col col-md-6">
+            <div class="form-group">
+              <label>DETAILS</label>
+              <input
+                [readonly]="!canEdit"
+                class="form-control"
+                type="text"
+                name="details"
+                #details="ngModel"
+                [(ngModel)]="service.formData.details"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>NOTES</label>
+              <input
+                [readonly]="!canEdit"
+                class="form-control"
+                type="text"
+                name="notes"
+                #notes="ngModel"
+                [(ngModel)]="service.formData.notes"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>PHONE NUMBER</label>
+              <input
+                [readonly]="!canEdit"
+                class="form-control"
+                type="text"
+                name="phone"
+                #phone="ngModel"
+                [(ngModel)]="service.formData.phone"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>DATE</label>
+              <input
+                [readonly]="!canEdit"
+                class="form-control"
+                type="date"
+                name="date"
+                #date="ngModel"
+                [(ngModel)]="service.formData.date"
+              />
+            </div>
+
+            <div
+              *ngIf="
+                (userService.userData.userType === 'Dispatcher' || userService.userData.userType === 'TeamMember') && service.formData.state === 'Drafted' "
+              class="form-group"
+            >
+              <button (click)="Edit()" class="btn btn-light btn-lg">
+                <i class="fa fa-edit fa-2x"></i>
+              </button>
+              <button
+                *ngIf="canEdit"
+                (click)="Save()"
+                class="btn btn-success btn-lg"
+                [disabled]="form.invalid"
+              >
+                <i class="fa fa-check fa-2x"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

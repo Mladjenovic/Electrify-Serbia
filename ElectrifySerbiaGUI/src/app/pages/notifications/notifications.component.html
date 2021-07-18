@@ -1,0 +1,27 @@
+<div class="row notification-component">
+    <div class="col-lg-3">
+        <div class="sidebar-notifications">
+            <div class="sidebar-item" routerLinkActive="active">
+                <a routerLink="all">All notifications</a>
+            </div>
+            <div class="sidebar-item" routerLinkActive="active">
+                <a routerLink="unread">Unread notifications</a>
+            </div>
+            <div class="sidebar-item" routerLinkActive="active">
+                <a routerLink="errors">Errors<i class="fa fa-times fa-lg"></i></a>
+            </div>
+            <div class="sidebar-item" routerLinkActive="active">
+                <a routerLink="info">Info<i class="fa fa-info-circle fa-lg"></i></a>
+            </div>
+            <div class="sidebar-item" routerLinkActive="active">
+                <a routerLink="success">Success<i class="fa fa-check fa-lg"></i></a>
+            </div>
+            <div class="sidebar-item" routerLinkActive="active">
+                <a routerLink="warnings">Warnings<i class="fa fa-exclamation-triangle fa-lg"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 notifications-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

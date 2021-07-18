@@ -1,0 +1,154 @@
+<div class="main">
+  <div class="row col-md-12">
+      <div class="col col-md-3 form-selection">
+          <div class="row">
+            <div class="col-md-3 form-sections">
+              <div class="col-12 form-label">
+                <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+              </div>
+              <div class="col-12 form-label">
+                <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+              </div>
+              <div class="col-12 form-label">
+                <a class="btn btn-lg" (click)="changePath('resolution')">Resolutions</a>
+              </div>
+              <div class="col-12 form-label">
+                <a class="btn btn-lg" (click)="changePath('call')">Calls</a>
+              </div>
+              <div class="col-12 form-label">
+                <a class="btn btn-lg" (click)="changePath('crew')">Crew</a>
+              </div>
+              <div class="col-12 form-label">
+                <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col col-md-9">
+          <br><br>
+          <div class="container text-center">
+          <span class="title">INCIDENT BASIC INFORMATIONS</span>
+          </div>
+          <br><br><br><br>
+          <form autocomplete = "on" novalidate #form="ngForm">
+          <div class="row">
+              <div class="col col-md-6">
+
+                  <div class="form-group">
+                      <label>TYPE</label>
+                      <select [disabled]="!canEdit" class="form-control" name="type" #type="ngModel" [(ngModel)]="service.formData.type">
+                          <option value="Planned">Planned</option>
+                          <option value="Unplanned">Unplanned</option>
+                          </select>
+                  </div>
+
+                  <div class="form-group">
+                      <label>PRIORITY</label>
+                      <input type="text" class="form-control" placeholder="Priority..."
+                      name="priority" #priority="ngModel" [(ngModel)] = "service.formData.priority"
+                      required readonly>
+                  </div>
+                  <div class="form-group">
+                      <label>ADDRESS</label>
+                      <select [disabled]='!canEdit' (change)="addressChange()" class="form-control" name="address" #address="ngModel" [(ngModel)] = "service.formData.address">
+                          <option *ngFor="let item of settings.streets" [ngValue]="item.name">{{item.name}}</option>
+                      </select>
+                  </div>
+
+                  <div class="form-group">
+                          <label>STATUS</label>
+                          <select class="form-control" placeholder="Status.."
+                          name="status" type="text" #status="ngModel" [(ngModel)] = "service.formData.status"
+                          [disabled]="!canEdit">
+                          <option value="Drafted">Drafted</option>
+                          <option value="Canceled">Canceled</option>
+                          <option value="Executing">Executing</option>
+                          <option value="Complited">Complited</option>
+                      </select>
+                  </div>
+
+
+                  <div class="form-group">
+                      <label>ETA</label>
+                      <input class="form-control"
+                      name="eta" #eta="ngModel" type="date" [(ngModel)] = "service.formData.eta"
+                      required [readonly]="!canEdit">
+                  </div>
+
+                  <div class="form-group">
+                      <label>ATA</label>
+                      <input class="form-control"
+                      name="ata" type="date" #ata="ngModel" [(ngModel)] = "service.formData.ata"
+                      required [readonly]="!canEdit">
+                  </div>
+                  <div class="form-group">
+                      <mat-slide-toggle color="primary" [disabled]="!canEdit" style="margin-left: 5px;"
+                      name="confirmed" #confirmed="ngModel" [(ngModel)] = "service.formData.confirmed"
+                      ><b>CONFIRMED</b></mat-slide-toggle>
+                  </div>
+
+                  <div class="form-group" *ngIf="userService.userData.userType ==='Dispatcher' || userService.userData.userType ==='TeamMember'">
+                      <button (click)="edit()" class="btn btn-light btn-lg"
+                      >
+                          <i class="fa fa-edit"></i>
+                      </button>
+                      <button *ngIf="canEdit" (click)="save()" class="btn btn-success btn-lg"
+                      [disabled]="form.invalid"
+                      >
+                      <i class="fa fa-check"></i>
+                      </button>
+                  </div>
+              </div>
+              <div class="col col-md-6">
+                  <div class="form-group">
+                          <label>TIME OF INCIDENT</label>
+                          <input class="form-control" type="date"
+                          name="timeOfIncident" #timeOfIncident="ngModel" placeholder="Time of incident" [(ngModel)] = "service.formData.timeOfIncident"
+                          required [readonly]="!canEdit">
+                  </div>
+
+                  <div class="form-group">
+                          <label>ETR</label>
+                          <input class="form-control" type="date"
+                          name="etr" #etr="ngModel" [(ngModel)] = "service.formData.etr"
+                          required [readonly]="!canEdit">
+                  </div>
+
+                  <div class="form-group">
+                          <label>CALLS</label>
+                          <input class="form-control" placeholder="Calls"
+                          name="calls" #calls="ngModel" [(ngModel)] = "service.formData.calls"
+                          required [readonly]="!canEdit">
+                  </div>
+
+                  <div class="form-group">
+                      <label>VOLTAGE</label>
+                      <input class="form-control" placeholder="Voltage..."
+                      name="voltage" #voltage="ngModel" [(ngModel)] = "service.formData.voltage"
+                      required [readonly]="!canEdit">
+                  </div>
+
+                  <div class="form-group">
+                      <label>AFFECTED CONSUMERS</label>
+                      <input class="form-control" placeholder="Affected consumers..."
+                      name="affectedConsumers" #affectedConsumers="ngModel" [(ngModel)] = "service.formData.affectedConsumers"
+                      required [readonly]="!canEdit">
+                  </div>
+
+                  <div class="form-group">
+                      <label>SHEDULED TIME</label>
+                      <input class="form-control" type="date"
+                      name="shedule" #shedule="ngModel" [(ngModel)] = "service.formData.sheduledTime"
+                      required [readonly]="!canEdit">
+                  </div>
+
+
+              </div>
+
+
+          </div>
+
+          </form>
+      </div>
+  </div>
+</div>

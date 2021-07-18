@@ -1,0 +1,54 @@
+<div class="dashboard">
+    <h1 class="page-title">DASHBOARD</h1>
+    <div class="row">
+        <div class="col-md-4 dashboard-header-section">
+            <div class="dashboard-inner-section dashboard-inner-section-top" routerLink="/incidents">
+                <h4>MY INCIDENTS
+                  <div style="float: right;">
+                    <i class="fa fa-exclamation-triangle fa-lg"></i>&nbsp;<span style="font-size: 30px;">{{incidents.allIncidents}}</span>
+                  </div>
+                </h4>
+                <label><b>{{incidents.drafts}}</b>&nbsp; Drafts</label><br>
+                <label><b>{{incidents.canceled}}</b>&nbsp; Canceled</label><br>
+                <label><b>{{incidents.executing}}</b>&nbsp; Executing</label><br>
+                <label><b>{{incidents.completed}}</b>&nbsp; Completed</label><br>
+            </div>
+
+        </div>
+        <div class="col-md-4 dashboard-header-section">
+            <div class="dashboard-inner-section dashboard-inner-section-top">
+                <h4>MY WORK PLANS</h4>
+                <label><b>0</b>&nbsp; Drafts</label><br>
+                <label><b>0</b>&nbsp; Canceled</label><br>
+                <label><b>2</b>&nbsp; Executing</label><br>
+                <label><b>1</b>&nbsp; Completed</label><br>
+            </div>
+        </div>
+        <div class="col-md-4 dashboard-header-section">
+            <div class="dashboard-inner-section" routerLink="/safetydocs">
+              <h4>
+                MY SAFETY DOCS
+                <div style="float: right;">
+                    <i class="fa fa-file fa-lg"></i>&nbsp;<span style="font-size: 30px;">{{safetyDocs.allDocuments}}</span>
+                </div>
+            </h4>
+            <p class="drafts">   <a style="color: black;">{{safetyDocs.drafts}}</a>&nbsp; Drafts</p>
+            <p class="canceled"> <a style="color: black;">{{safetyDocs.canceled}}</a>&nbsp; Canceled</p>
+            <p class="executing"><a style="color: black;">{{safetyDocs.executing}}</a>&nbsp; Executing</p>
+            <p class="complited"><a style="color: black;">{{safetyDocs.completed}}</a>&nbsp; Complited</p>
+            </div>
+        </div>
+        <div class="col-md-8 dashboard-header-section">
+            <div class="dashboard-inner-section">
+                <h4>INCIDENTS</h4>
+                <img class="img-fluid" src="https://miro.medium.com/max/788/1*bFUKtr4h4mzmY5uHuEz_zA.png"/>
+            </div>
+        </div>
+        <div class="col-md-4 dashboard-header-section">
+            <div class="dashboard-inner-section">
+                <h4>DOCUMENTS</h4>
+                <img class="img-fluid" src="https://i.stack.imgur.com/DWsLK.png"/>
+            </div>
+        </div>
+    </div>
+</div>

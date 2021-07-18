@@ -1,0 +1,100 @@
+<div class="main">
+  <div class="row col-md-12">
+    <div class="col col-md-3">
+      <div class="row">
+        <div class="col-md-3 form-sections">
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('resolution')">Resolutions</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('call')">Calls</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('crew')">Crew</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-9">
+      <br /><br />
+      <div class="container text-center">
+        <span class="title">INCIDENT MULTIMEDIA</span>
+      </div>
+      <br /><br />
+      <br />
+      <div
+        *ngIf="
+          userService.userData.userType !== 'Administrator' &&
+          userService.userData.userType !== 'Worker'
+        "
+        class="container text-center"
+      >
+        <ngx-dropzone (change)="onSelect($event)">
+          <ngx-dropzone-label>Click here or Drop it!</ngx-dropzone-label>
+          <ngx-dropzone-preview
+            *ngFor="let f of files"
+            [removable]="true"
+            (removed)="onRemove(f)"
+          >
+            <ngx-dropzone-label>({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+        <br />
+        <button
+          class="btn btn-danger"
+          [disabled]="files.length === 0"
+          (click)="upload()"
+        >
+          <i class="fa fa-upload fa-lg"></i>&nbsp;Upload
+        </button>
+      </div>
+      <br />
+
+      <div *ngIf="service.formData.multimedia.length !== 0" class="scrollable">
+        <table class="table table-striped table-hover table-light text-center">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of service.formData.multimedia
+                  | paginate: { itemsPerPage: 10, currentPage: p }
+              "
+            >
+              <td style="width: 50%">
+                <img [src]="item.url" style="width: 100%; height: 300px" />
+              </td>
+              <td style="vertical-align: middle">
+                <a
+                  *ngIf="userService.userData.userType==='Dispatcher'"
+                  style="width: 100px"
+                  class="btn btn-danger"
+                  (click)="delete(item.id)"
+                  ><i class="fa fa-trash fa-lg"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <pagination-controls
+        *ngIf="service.formData.multimedia.length !== 0"
+        (pageChange)="p = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>

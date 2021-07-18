@@ -1,0 +1,61 @@
+.incidents {
+  padding: 0 25px;
+}
+
+.incidents button {
+  margin-bottom: 15px;
+}
+
+.incidents button i {
+  margin-right: 15px;
+}
+
+.incidents .filter-btn {
+  text-align: right;
+  float: right;
+}
+
+.incidents .table th, .incidents .table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.new-incident {
+  display: none;
+  padding: 0 25px;
+}
+
+.new-incident .form-sections {
+  border: 2px solid black;
+}
+
+.new-incident .devices, .new-incident .resolution {
+  display: none;
+}
+
+.new-incident .incident-input {
+  width: 80%;
+  margin-left: 20px;
+}
+
+.new-incident .customer-info {
+  padding: 20px;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.new-incident .form-label {
+  padding: 10px 10px 0px 10px;
+}
+
+.scrollable {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+table {
+  width: 200%;
+}
+/*# sourceMappingURL=incidents.component.css.map */

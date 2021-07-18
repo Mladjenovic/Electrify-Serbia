@@ -1,0 +1,160 @@
+
+<div class="form-body">
+  <div class="login-form">
+    <form autocomplete="on" novalidate #form="ngForm" (submit)="onSubmit(form)">
+      <h2 class="text-center">Sign in</h2>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <span class="fa fa-user"></span>
+            </span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="email"
+            placeholder="Email"
+            #email="ngModel"
+            [(ngModel)]="service.userData.email"
+            required="required"
+            minlength="10"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-lock"></i>
+            </span>
+          </div>
+          <input
+            class="form-control"
+            type="password"
+            name="password"
+            placeholder="Password"
+            #password="ngModel"
+            [(ngModel)]="service.userData.password"
+            required="required"
+            minlength="8"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <button
+          type="submit"
+          class="btn btn-primary login-btn btn-block"
+          [disabled]="form.invalid"
+        >
+          Sign in
+        </button>
+      </div>
+      <div class="or-seperator"><i>or</i></div>
+      <div class="form-group">
+        <a
+        type="button"
+          class="btn btn-danger login-btn btn-block"
+          (click)="open(content)"
+        >
+          Report outage
+      </a>
+      </div>
+      <div class="or-seperator"><i>or</i></div>
+      <p class="text-center">Login with your social media account</p>
+      <div class="text-center social-btn">
+        <a href="#" class="btn btn-secondary"
+          ><i class="fa fa-facebook"></i>&nbsp; Facebook</a
+        >
+        <a href="#" class="btn btn-info"
+          ><i class="fa fa-twitter"></i>&nbsp; Twitter</a
+        >
+        <a href="#" class="btn btn-danger"
+          ><i class="fa fa-google"></i>&nbsp; Google</a
+        >
+      </div>
+    </form>
+    <p class="text-center text-muted small">
+      Don't have an account? <a href="/register">Sign up here!</a>
+    </p>
+  </div>
+
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 style="color: red" class="modal-title" id="modal-basic-title">
+      Report Problem
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm">
+      <div class="row">
+        <div class="form-group">
+          <label>Reason</label>
+          <select
+            class="form-control"
+            name="reason"
+            #reason="ngModel"
+            [(ngModel)]="callService.formData.reason"
+            required
+          >
+            <option value="No electricity">No Electricity</option>
+            <option value="Malfunction">Malfunction</option>
+            <option value="Flickering lights">Flickering lights</option>
+            <option value="Electricity return">Electricity return</option>
+            <option value="Partial current">Partial current</option>
+            <option value="Voltage problems">Voltage problems</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Comment</label>
+          <input
+            class="form-control"
+            name="comment"
+            #comment="ngModel"
+            [(ngModel)]="callService.formData.comment"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Hazard</label>
+          <input
+            class="form-control"
+            name="hazard"
+            #hazard="ngModel"
+            [(ngModel)]="callService.formData.hazard"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <select
+            (change)="addressChange()"
+            class="form-control"
+            name="address"
+            #address="ngModel"
+            [(ngModel)]="callService.formData.address"
+          >
+            <option *ngFor="let item of settings.streets" [ngValue]="item.name">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-lg" (click)="report()">
+      Report
+    </button>
+  </div>
+</ng-template>

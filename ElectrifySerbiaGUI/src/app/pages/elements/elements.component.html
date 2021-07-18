@@ -1,0 +1,219 @@
+<div class="main">
+  <br /><br />
+  <div class="container text-center">
+    <span class="title">All Elements</span>
+  </div>
+  <br /><br /><br /><br />
+
+  <table class="search">
+    <tr>
+      <td style="width: 20%">
+        <input
+          type="text"
+          class="form-control"
+          name="id"
+          #id="ngModel"
+          [(ngModel)]="searchId"
+          placeholder="Id..."
+        />
+      </td>
+      <td style="width: 20%">
+        <select
+          name="type"
+          class="form-control"
+          #type="ngModel"
+          [(ngModel)]="searchType"
+        >
+          <option value="" disabled selected hidden>Choose type...</option>
+          <option value="Switch">Switch</option>
+          <option value="Fuse">Fuse</option>
+          <option value="Transformer">Transformer</option>
+          <option value="Disconnector">Disconnector</option>
+        </select>
+      </td>
+      <td style="width: 20%">
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          #name="ngModel"
+          [(ngModel)]="searchName"
+          placeholder="Name..."
+        />
+      </td>
+      <td style="width: 20%">
+        <input
+          type="text"
+          class="form-control"
+          name="address"
+          #address="ngModel"
+          [(ngModel)]="searchAddress"
+          placeholder="Adress..."
+        />
+      </td>
+      <td style="width: 10%">
+        <button style="width: 100%" (click)="search()" class="btn btn-info">
+          <i class="fa fa-search"></i>
+        </button>
+      </td>
+      <td style="width: 10%">
+        <button style="width: 100%" (click)="reset()" class="btn btn-info">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <button
+    *ngIf="userService.userData.userType === 'Administrator'"
+    class="btn-new btn btn-primary"
+    (click)="open(content)"
+  >
+    <i class="fa fa-plus-square">&nbsp;NEW</i>
+  </button>
+  <br />
+  <table class="table table-striped table-hover table-light">
+    <thead>
+      <tr>
+        <th (click)="sort('id')">Id&nbsp;<i class="fa fa-sort"></i></th>
+        <th (click)="sort('name')">Name&nbsp;<i class="fa fa-sort"></i></th>
+        <th (click)="sort('type')">Type&nbsp;<i class="fa fa-sort"></i></th>
+        <th (click)="sort('x')">
+          Coordinate X&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('y')">
+          Coordinate Y&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('address')">
+          Address&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of service.list
+            | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.x }}</td>
+        <td>{{ item.y }}</td>
+        <td>{{ item.address }}</td>
+        <td style="width: 15%">
+          <a
+            *ngIf="userService.userData.userType === 'Administrator'"
+            style="width: 45%"
+            class="btn btn-danger"
+            (click)="delete(item.id)"
+            ><i class="fa fa-trash fa-lg"></i></a
+          >&nbsp;
+          <a
+            *ngIf="userService.userData.userType === 'Administrator'"
+            style="width: 45%"
+            class="btn btn-info"
+            (click)="open(content, item)"
+            ><i class="fa fa-edit fa-lg"></i
+          ></a>
+        </td>
+        <!-- <td
+          *ngIf="userService.userData.userType === 'Administrator'"
+          style="width: 7%; text-align: center"
+        >
+          <a style="width: 100%" class="btn btn-info"
+            ><i class="fa fa-map-marker fa-lg"></i
+          ></a>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Element</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #form="ngForm">
+        <div class="form-group">
+          <label>TYPE</label>
+
+          <select
+            required
+            name="type"
+            #type="ngModel"
+            [(ngModel)]="service.formData.type"
+            class="form-control"
+          >
+            <option value="Switch">Switch</option>
+            <option value="Fuse">Fuse</option>
+            <option value="Transformer">Transformer</option>
+            <option value="Disconnector">Disconnector</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>ADDRESS</label>
+          <select
+            required
+            class="form-control"
+            name="address"
+            #address="ngModel"
+            [(ngModel)]="service.formData.address"
+          >
+            <option *ngFor="let item of settings.streets" [ngValue]="item.name">
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>COORDINATE X</label>
+            <input
+              required
+              type="text"
+              class="form-control"
+              name="x"
+              #x="ngModel"
+              [(ngModel)]="service.formData.x"
+              placeholder="X..."
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label>COORDINATE Y</label>
+            <input
+              required
+              type="text"
+              class="form-control"
+              name="y"
+              #y="ngModel"
+              [(ngModel)]="service.formData.y"
+              placeholder="Y..."
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid"
+        type="button"
+        class="btn btn-danger btn-lg"
+        (click)="save()"
+      >
+        Save
+      </button>
+    </div>
+  </ng-template>
+</div>

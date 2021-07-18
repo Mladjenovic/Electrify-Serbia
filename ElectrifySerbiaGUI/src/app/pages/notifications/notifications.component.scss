@@ -1,0 +1,77 @@
+.sidebar-notifications {
+    border: 2px solid black;
+    padding: 0px;
+    margin-top: 50px;
+    .sidebar-item {
+        height: 60px;
+        font-size: 16px;
+        padding: 20px;
+        a {
+            color: black;
+        }
+    }
+
+    .active {
+        background-color: red;
+        .fa {
+            color: black!important;
+        }
+    }
+
+    .fa-check {
+        color : green;
+    }
+
+    .fa-times {
+        color: red;
+    }
+
+    .fa-info-circle {
+        color: lightblue;
+    }
+
+    .fa-exclamation-triangle {
+        color: orange;
+    }
+}
+.notification-commands{
+    padding-bottom: 15px;
+}
+.notification-item {
+    font-size: 16px;
+    width: 80%;
+    height: 80px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    p {
+        padding: 30px;
+    }
+    border-radius: 15px;
+    
+}
+
+.error {
+    background-color: #FA7C7C;
+}
+
+.warning {
+    background-color: #FAED81;
+}
+
+.success {
+    background-color: #81FAA7;
+}
+
+.info {
+    background-color: #91EEFD;
+}
+
+.notifRead {
+    background-color: lightgray!important;
+}
+
+.fa {
+    padding: 0 10px;
+}
+
+    

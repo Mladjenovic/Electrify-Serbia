@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="page-title col-12">
+        <h1 class="text-center">Workplans</h1>
+    </div>
+    <div class="table-commands col-12">
+        <div class="row">
+            <div class="col-2 offset-10">
+                <button
+                class="btn-new btn btn-primary"
+                >New</button>
+            </div>
+        </div>
+    </div>
+    <div class="workplans-table table-responsive-xl col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doc Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Phone No.</th>
+                    <th>Status</th>
+                    <th>Address</th>
+                    <th>Created by</th>
+                    <th>Purpose</th>
+                    <th>Notes</th>
+                    <th>Details</th>
+                    <th>Company</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of service.workplans">
+                    <td>{{item.id}}</td>
+                    <td>{{item.docType}}</td>
+                    <td>{{item.startDateTime}}</td>
+                    <td>{{item.endDateTime}}</td>
+                    <td>{{item.phoneNumber}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.address}}</td>
+                    <td>{{item.createdBy}}</td>
+                    <td>{{item.purpose}}</td>
+                    <td>{{item.notes}}</td>
+                    <td>{{item.details}}</td>
+                    <td>{{item.company}}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>

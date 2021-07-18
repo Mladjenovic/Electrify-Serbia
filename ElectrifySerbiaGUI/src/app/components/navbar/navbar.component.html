@@ -1,0 +1,62 @@
+<div class="wrapper">
+
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <img class="img-fluid" src="/assets/logo.png"/>
+        </div>
+
+        <ul *ngIf="service.userData.loggedin" class="list-unstyled components">
+            <li class="active">
+                <a href="#" routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-home fa-2x" aria-hidden="true"></i><span class="sidebar-item">Home</span></a>
+            </li><br>
+            <li>
+                <a href="#" routerLink="/incidents" routerLinkActive="active"><i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i><span class="sidebar-item">Incidents</span></a>
+            </li><br>
+            <li>
+                <a ><i class="fa fa-map fa-2x" aria-hidden="true"></i><span class="sidebar-item">Maps</span></a>
+            </li><br>
+            <li>
+              <a routerLink="/safetydocs"><i class="fa fa-file fa-2x" aria-hidden="true"></i><span class="sidebar-item">Safety documents</span></a>
+           </li><br>
+           <li>
+            <a routerLink="element"><i class="fa fa-bolt fa-2x" aria-hidden="true"></i><span class="sidebar-item">Elements</span></a>
+          </li><br>
+            <li>
+                <a routerLink="/notifications/all"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i><span class="sidebar-item">Notifications</span></a>
+            </li><br>
+            <li>
+              <a routerLink="/crew"><i class="fa fa-users fa-2x" aria-hidden="true"></i><span class="sidebar-item">Crews</span></a>
+            </li><br>
+            <li>
+              <a routerLink="/workplans"><i class="fa fa-users fa-2x" aria-hidden="true"></i><span class="sidebar-item">Workplans</span></a>
+            </li><br>
+           <li>
+            <li>
+              <a routerLink="/consumers"><i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i><span class="sidebar-item">Consumers</span></a>
+            </li><br>
+           <li>
+            <a routerLink="/call"><i class="fa fa-phone fa-2x" aria-hidden="true"></i><span class="sidebar-item">Calls</span></a>
+          </li><br>
+          <!-- <li>
+            <a ><i class="fa fa-search fa-2x" aria-hidden="true"></i><span class="sidebar-item">Search</span></a>
+         </li><br> -->
+         <li>
+            <a href="#" routerLink="/settings" routerLinkActive="active"><i class="fa fa-sliders fa-2x" aria-hidden="true"></i><span class="sidebar-item">Settings</span></a>
+          </li><br>
+        <li>
+          <a href="#" (click)="logout()" routerLink="/" routerLinkActive="active"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i><span class="sidebar-item">Log out</span></a>
+      </li>
+
+        </ul>
+        <ul *ngIf="!service.userData.loggedin" class="list-unstyled components">
+
+            <li>
+                <a href="#" routerLink="/login" routerLinkActive="active"><i class="fa fa-key fa-2x" aria-hidden="true"></i><span class="sidebar-item">Sign In</span></a>
+            </li><br>
+            <li>
+                <a href="#" routerLink="/register" routerLinkActive="active"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i><span class="sidebar-item">Register</span></a>
+            </li>
+        </ul>
+    </nav>
+
+</div>

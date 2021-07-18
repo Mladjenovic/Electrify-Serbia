@@ -1,0 +1,110 @@
+<div class="main">
+  <div class="row col-md-12">
+      <div class="col col-md-3">
+        <div class="row">
+          <div class="col-md-3 form-sections">
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('resolution')">Resolutions</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('call')">Calls</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('crew')">Crew</a>
+            </div>
+            <div class="col-12 form-label">
+              <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-9">
+          <br><br>
+          <div class="container text-center">
+          <span class="title">INCIDENT DEVICES</span>
+          </div>
+          <br><br>
+          <button *ngIf="userService.userData.userType ==='Dispatcher' || userService.userData.userType ==='TeamMember'" class="btn-new btn btn-primary" (click)="open(content)"><i class="fa fa-plus-square">&nbsp;NEW</i></button>
+          <br>
+          <table class="table text-center table-striped table-hover table-light">
+              <thead>
+                  <tr>
+                      <th>Id          </th>
+                      <th>Name        </th>
+                      <th>Type        </th>
+                      <th>Coordinate X</th>
+                      <th>Coordinate Y</th>
+                      <th>Address     </th>
+                      <th>&nbsp;</th>
+
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of service.formData.elements | paginate: { itemsPerPage: 10, currentPage: p }">
+                      <td>{{item.id}}</td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.type}}</td>
+                      <td>{{item.x}}</td>
+                      <td>{{item.y}}</td>
+                      <td>{{item.address}}</td>
+                      <td>
+                          <a *ngIf="userService.userData.userType ==='Dispatcher' || userService.userData.userType ==='TeamMember'" style="width: 100%;" class="btn btn-danger" (click)="delete(item.id)"><i class="fa fa-trash fa-lg"></i></a>
+                      </td>
+
+                  </tr>
+              </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+          <ng-template #content let-modal>
+          <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Select Elements</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form #form = "ngForm">
+                  <div class="form-group">
+                      <div *ngIf="elementService.list.length !== 0" class="scrollable">
+                          <table class="table text-center table-striped table-light">
+                          <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Name</th>
+                                  <th>Type</th>
+                                  <th>Address</th>
+                                  <th>&nbsp;</th>
+                              </tr>
+                          </thead>
+                          <tr *ngFor="let element of elements">
+                              <td>{{element.id}}</td>
+                              <td>{{element.name}}</td>
+                              <td>{{element.type}}</td>
+                              <td>{{element.address}}</td>
+                              <td *ngIf="service.formData.elements.length === 0">
+                              <button class="btn btn-danger btn-sm" style="background-color:#d9534f;" (click)="onChange(element)">ADD</button>
+                              </td>
+                              <td *ngIf="service.formData.elements.length !== 0">
+                                  <button *ngIf="!find(element)" class="btn btn-danger btn-sm" style="background-color:#d9534f;" (click)="onChange(element)">ADD</button>
+                                  <i *ngIf="find(element)" class="fa fa-check fa-lg"></i>
+                              </td>
+                          </tr>
+                          </table>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger btn-lg" (click)="add()">Close</button>
+          </div>
+          </ng-template>
+      </div>
+  </div>
+</div>

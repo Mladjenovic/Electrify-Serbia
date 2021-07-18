@@ -1,0 +1,200 @@
+<div class="row">
+    <div class="page-title col-12">
+        <h1 class="text-center">Consumers</h1>
+    </div>
+    <div class="table-commands col-12">
+        <div class="row">
+            <div class="col-2 offset-10">
+                <button *ngIf="userService.userData.userType === 'Administrator'"
+                class="btn-new btn btn-primary"
+                (click)="open(content)">New consumer</button>
+            </div>
+        </div>
+    </div>
+    <div class="consumers-table col-12">
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <th class="col-sm-1">Name</th>
+                    <th class="col-sm-2">Surname</th>
+                    <th class="col-sm-2">Consumer Type</th>
+                    <th class="col-sm-1">Birthday</th>
+                    <th class="col-sm-2">Address</th>
+                    <th class="col-sm-2">Email</th>
+                    <th class="col-sm-2">Phone number</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of consumerService.usersList" class="row">
+                    <td class="col-sm-1">{{item.name}}</td>
+                    <td class="col-sm-2">{{item.surname}}</td>
+                    <td class="col-sm-2">{{item.consumerType}}</td>
+                    <td class="col-sm-1">{{item.dateOfBirth}}</td>
+                    <td class="col-sm-2">{{item.address}}</td>
+                    <td class="col-sm-2">{{item.email}}</td>
+                    <td class="col-sm-2">{{item.phoneNumber}}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Add Consumer</h4>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body ">
+          <form #form="ngForm"
+          (submit)="save(form)" class="row">
+          <input type="hidden" name="userId" [value]="consumerService.userData.userId" />
+            <div class="form-group col-12">
+              <label>Username</label>
+              <input
+              name="username"
+              class="form-control"
+              type="text"
+              #username="ngModel"
+              [(ngModel)]="consumerService.userData.username"
+              required
+            />
+              
+            </div>
+            <div class="form-group col-md-6">
+                <label>Name</label>
+                <input
+                name="name"
+                class="form-control"
+                type="text"
+                #name="ngModel"
+                [(ngModel)]="consumerService.userData.name"
+                required
+              />
+                
+              </div>
+              <div class="form-group col-md-6">
+                <label>Surname</label>
+                <input
+                name="surname"
+                class="form-control"
+                type="text"
+                #username="ngModel"
+                [(ngModel)]="consumerService.userData.surname"
+                required
+              />
+                
+              </div>
+              <div class="form-group col-md-6">
+                <label>Email</label>
+                <input
+                name="email"
+                class="form-control"
+                type="email"
+                #username="ngModel"
+                [(ngModel)]="consumerService.userData.email"
+                required
+              />
+                
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Password</label>
+                <input
+                name="password"
+                class="form-control"
+                type="Password"
+                #username="ngModel"
+                [(ngModel)]="consumerService.userData.password"
+                required
+              />
+                
+              </div>
+    
+            <div class="form-group col-12">
+              <label>Address</label>
+              <input
+                name="address"
+                class="form-control"
+                type="text"
+                #username="ngModel"
+                [(ngModel)]="consumerService.userData.address"
+                required
+              />
+                
+              <!-- <select
+                required
+                class="form-control"
+                name="address"
+              >
+                
+              </select> -->
+            </div>
+            <div class="form-group col-12">
+              <label>Birthday</label>
+              <input
+                name="dateOfBirth"
+                class="form-control"
+                type="text"
+                #username="ngModel"
+                [(ngModel)]="consumerService.userData.dateOfBirth"
+                required
+              />
+                
+            </div>
+            <div class="form-group col-12">
+              <label>Phone number</label>
+              <input
+                name="phoneNumber"
+                class="form-control"
+                type="text"
+                #phoneNumber="ngModel"
+                [(ngModel)]="consumerService.userData.phoneNumber"
+              />
+                
+            </div>
+            <div class="form-group col-12">
+              <label>Consumer Type</label>
+              <select
+                class="form-control"
+                name="customerType"
+                #userType="ngModel"
+                [(ngModel)]="consumerService.userData.consumerType"
+              >
+                <option>Residential</option>
+                <option>Commercial</option>
+              </select>
+            </div>
+            <div *ngIf="consumerService.userData.image != ''" class="form-group user-img-div" >
+              <img class="user-img img-fluid" [src]="consumerService.userData.image" />
+            </div>
+            <div class="form-group col-12">
+              <input
+                type="file"
+                (change)="onImageChange($event)"
+                class="form-control"
+              />
+            </div>
+            <div class="col-12">
+              <button
+                type="submit"
+                class="btn btn-danger btn-lg"
+                (click)="modal.dismiss()"
+              >
+                Save
+              </button>
+            </div>
+            
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+         
+        </div> -->
+      </ng-template>
+</div>

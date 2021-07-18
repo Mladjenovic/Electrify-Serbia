@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-6 user-info-change-form">
+        <form #userInfoEdit="ngForm" novalidate (ngSubmit)="editUserInfoSubmit(userInfoEdit)">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input 
+                        ngModel placeholder={{this.userService.userData.name}} class="form-control" name="firstName" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Last name</label>
+                        <input ngModel placeholder={{this.userService.userData.surname}}
+                         class="form-control" name="lastname" type="text">
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input ngModel placeholder={{this.userService.userData.address}}
+                         class="form-control" name="address" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone number</label>
+                        <input ngModel placeholder={{this.userService.userData.phoneNumber}}
+                         class="form-control" name="phoneNo" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>User Type</label>
+                    <select (change)="onTypeChange($event)"
+                        class="custom-select"
+                        required
+                        name="userType"
+                    >
+                    <option *ngFor="let item of userTypes.userTypes" [ngValue]="item" [selected]="item.name == userService.userData.userType">{{item.name}} </option>
+                    </select>
+                    </div>
+        
+                    <input type="submit" class="btn btn-primary"/>
+                </div>
+                <div class="col-md-4 user-photo">
+                    <img class="user-img img-fluid" [src]="userService.userData.image" />
+                    <div class="form-group">
+                        <input
+                          type="file" 
+                          (change)="onImageChange($event)"
+                          class="form-control"
+                        />
+                      </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="col-md-4 password-change-form">
+        <form #passwordChangeForm="ngForm" novalidate (ngSubmit)="changePasswordSubmit(passwordChangeForm)" >
+            <div class="col-md-8 offset-md-4">
+                <div class="form-group">
+                    <label>Old password</label>
+                    <input 
+                    ngModel class="form-control" name="oldPass" type="password">
+                </div>
+                <div class="form-group">
+                    <label>New password</label>
+                    <input ngModel
+                     class="form-control" name="newPass" type="password">
+                </div>
+    
+                <div class="form-group">
+                    <label>Confirm new password</label>
+                    <input ngModel
+                     class="form-control" name="newPassConf" type="password">
+                </div>
+    
+                <input type="submit" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+    
+</div>

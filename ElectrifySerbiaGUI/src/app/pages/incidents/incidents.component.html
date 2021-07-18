@@ -1,0 +1,308 @@
+<div class="incidents">
+  <h1>INCIDENT BROWSER - ALL</h1>
+  <div class="row">
+    <div class="col-3">
+      <a
+        *ngIf="userService.userData.userType === 'Dispatcher'"
+        (click)="open(content)"
+        class="btn-new btn btn-primary"
+        ><i class="fa fa-plus-square">&nbsp;New</i></a
+      >
+    </div>
+
+    <table class="search">
+      <tr>
+        <td style="width: 20%">
+          <div class="filter">
+            Filter by&nbsp;
+            <select [(ngModel)]="filter" (change)="filterChange()">
+              <option value="All">All</option>
+              <option value="Mine">Mine</option>
+            </select>
+          </div>
+        </td>
+        <td style="width: 30%">
+          <select class="form-control" [(ngModel)]="searchStatus">
+            <option value="" disabled hidden selected>Status...</option>
+            <option value="Drafted">Drafted</option>
+            <option value="Canceled">Canceled</option>
+            <option value="Executing">Executing</option>
+            <option value="Complited">Complited</option>
+          </select>
+        </td>
+        <td style="width: 30%">
+          <select class="form-control" [(ngModel)]="searchType">
+            <option value="" disabled hidden selected>Type...</option>
+            <option value="Planned">Planned</option>
+            <option value="Unplanned">Unplanned</option>
+          </select>
+        </td>
+        <td style="width: 10%">
+          <button
+            style="width: 100%"
+            (click)="search()"
+            class="btn btn-info"
+          >
+            <i class="fa fa-search"></i>
+          </button>
+        </td>
+        <td style="width: 10%">
+          <button style="width: 100%" (click)="reset()" class="btn btn-info">
+            <i class="fa fa-refresh"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div class="scrollable" *ngIf="service.list.length > 0">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="sticky-col first-col" (click)="sort('id')">Id&nbsp;<i class="fa fa-sort"></i></th>
+            <th class="sticky-col second-col" (click)="sort('type')">Type&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('priority')">Priority&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('address')">Address&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('confirmed')">Confirmed&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('status')">Status&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('eta')">ETA&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('ata')">ATA&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('timeOfIncident')">Time&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('etr')">ETR&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('affected')">Affected&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('calls')">Calls&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('voltage')">Voltage&nbsp;<i class="fa fa-sort"></i></th>
+            <th (click)="sort('sheduleTime')">Shedule time&nbsp;<i class="fa fa-sort"></i></th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of service.list | paginate: { itemsPerPage: 10, currentPage: p }"
+                (dblclick)="details(item)">
+                    <td class="sticky-col first-col">{{item.id}}</td>
+                    <td class="sticky-col second-col">{{item.type}}</td>
+                    <td>{{item.priority}}</td>
+                    <td>{{item.address}}</td>
+                    <td>{{item.confirmed}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.eta}}</td>
+                    <td>{{item.ata}}</td>
+                    <td>{{item.timeOfIncident}}</td>
+                    <td>{{item.etr}}</td>
+                    <td>{{item.affectedConsumers}}</td>
+                    <td>{{item.calls}}</td>
+                    <td>{{item.voltage}}</td>
+                    <td>{{item.sheduledTime}}</td>
+                    <td>
+                        <a *ngIf="userService.userData.userType ==='Dispatcher'" style="width: 45%;" class="btn btn-danger" (click)="delete(item)"><i class="fa fa-trash fa-lg"></i></a>&nbsp;
+                        <a style="width: 45%;" class="btn btn-info" (click)="details(item)"><i class="fa fa-info-circle fa-lg"></i></a>
+                    </td>
+
+                </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination-controls *ngIf="service.list.length > 0" (pageChange)="p = $event"></pagination-controls>
+
+
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Incident</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm">
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="form-group">
+            <label>TYPE</label>
+            <select
+              class="form-control"
+              name="type"
+              #type="ngModel"
+              [(ngModel)]="service.formData.type"
+            >
+              <option value="Planned">Planned</option>
+              <option value="Unplanned">Uplaned</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>PRIORITY</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Priority..."
+              name="priority"
+              #priority="ngModel"
+              [(ngModel)]="service.formData.priority"
+              required
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label>ADDRESS</label>
+            <select
+              (change)="addressChange()"
+              class="form-control"
+              name="address"
+              #address="ngModel"
+              [(ngModel)]="service.formData.address"
+            >
+              <option
+                *ngFor="let item of settings.streets"
+                [ngValue]="item.name"
+              >
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>STATUS</label>
+            <select
+              disabled
+              class="form-control"
+              placeholder="Status.."
+              name="status"
+              type="text"
+              #status="ngModel"
+              [(ngModel)]="service.formData.status"
+            >
+              <option value="Drafted">Drafted</option>
+              <option value="Canceled">Canceled</option>
+              <option value="Executing">Executing</option>
+              <option value="Complited">Complited</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>ETA</label>
+            <input
+              class="form-control"
+              name="eta"
+              #eta="ngModel"
+              type="date"
+              [(ngModel)]="service.formData.eta"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>ATA</label>
+            <input
+              class="form-control"
+              name="ata"
+              type="date"
+              #ata="ngModel"
+              [(ngModel)]="service.formData.ata"
+              required
+            />
+          </div>
+        </div>
+        <div class="col col-md-6">
+          <div class="form-group">
+            <label>TIME OF INCIDENT</label>
+            <input
+              class="form-control"
+              type="date"
+              name="timeOfIncident"
+              #timeOfIncident="ngModel"
+              placeholder="Time of incident"
+              [(ngModel)]="service.formData.timeOfIncident"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>ETR</label>
+            <input
+              class="form-control"
+              type="date"
+              name="etr"
+              #etr="ngModel"
+              [(ngModel)]="service.formData.etr"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>CALLS</label>
+            <input
+              class="form-control"
+              placeholder="Calls"
+              name="calls"
+              #calls="ngModel"
+              [(ngModel)]="service.formData.calls"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>VOLTAGE</label>
+            <input
+              class="form-control"
+              placeholder="Voltage..."
+              name="voltage"
+              #voltage="ngModel"
+              [(ngModel)]="service.formData.voltage"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>AFFECTED CONSUMERS</label>
+            <input
+              class="form-control"
+              placeholder="Affected consumers..."
+              name="affectedConsumers"
+              #affectedConsumers="ngModel"
+              [(ngModel)]="service.formData.affectedConsumers"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>SHEDULED TIME</label>
+            <input
+              class="form-control"
+              type="date"
+              name="shedule"
+              #shedule="ngModel"
+              [(ngModel)]="service.formData.sheduledTime"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <mat-slide-toggle
+              color="primary"
+              style="margin-left: 5px"
+              name="confirmed"
+              #confirmed="ngModel"
+              [(ngModel)]="service.formData.confirmed"
+              ><b>CONFIRMED</b></mat-slide-toggle
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      [disabled]="form.invalid"
+      class="btn btn-success btn-lg"
+      (click)="save()"
+    >
+      ADD
+    </button>
+  </div>
+</ng-template>

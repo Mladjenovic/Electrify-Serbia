@@ -1,0 +1,65 @@
+.incidents {
+    padding: 0 25px;
+    button {
+        margin-bottom: 15px;
+        i {
+            margin-right: 15px;
+        }
+    }
+
+    .filter-btn {
+        text-align: right;
+        float:right;
+    }
+
+    .table {
+        th, td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+
+    }
+
+
+}
+
+.new-incident {
+    .form-sections {
+        border: 2px solid black;
+    }
+    // .col-12 {
+    //     padding: 20px 0;
+    // }
+    display: none;
+    padding: 0 25px;
+    .devices, .resolution {
+        display: none;
+    }
+    .incident-input {
+        width: 80%;
+        margin-left: 20px;
+    }
+
+    .customer-info {
+        padding: 20px;
+        border: 1px solid grey;
+        border-radius: 10px;
+    }
+
+    .form-label {
+        padding: 10px 10px 0px 10px;
+    }
+
+}
+.scrollable{
+  width: 100%;
+  overflow-x: scroll;
+}
+
+
+table{
+  width: 200%;
+}
+

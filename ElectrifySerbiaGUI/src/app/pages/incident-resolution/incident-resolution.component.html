@@ -1,0 +1,174 @@
+<div class="main">
+  <div class="row col-md-12">
+    <div class="col col-md-3">
+      <div class="col-md-3 form-sections">
+        <div class="col-12 form-label">
+          <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+        </div>
+        <div class="col-12 form-label">
+          <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+        </div>
+        <div class="col-12 form-label">
+          <a class="btn btn-lg" (click)="changePath('resolution')">Resolutions</a>
+        </div>
+        <div class="col-12 form-label">
+          <a class="btn btn-lg" (click)="changePath('call')">Calls</a>
+        </div>
+        <div class="col-12 form-label">
+          <a class="btn btn-lg" (click)="changePath('crew')">Crew</a>
+        </div>
+        <div class="col-12 form-label">
+          <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-9">
+      <br /><br />
+      <div class="container text-center">
+        <span class="title">INCIDENT RESOLUTIONS</span>
+      </div>
+      <br /><br />
+      <button
+        *ngIf="
+          userService.userData.userType !== 'Administrator' &&
+          userService.userData.userType !== 'Worker'
+        "
+        class="btn-new btn btn-primary"
+        (click)="open(content)"
+      >
+        <i class="fa fa-plus-square">&nbsp;NEW</i>
+      </button>
+      <br />
+      <table class="table text-center table-striped table-hover table-light">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Cause</th>
+            <th>Sub Cause</th>
+            <th>Construction</th>
+            <th>Material</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of service.formData.resolutions
+                | paginate: { itemsPerPage: 10, currentPage: p }
+            "
+          >
+            <td>{{ item.id }}</td>
+            <td>{{ item.cause }}</td>
+            <td>{{ item.subCause }}</td>
+            <td>{{ item.construction }}</td>
+            <td>{{ item.material }}</td>
+            <td>
+              <a
+                *ngIf="
+                  userService.userData.userType !== 'Administrator' &&
+                  userService.userData.userType !== 'Worker' &&
+                  userService.userData.userType !== 'Consumer'
+                "
+                style="width: 100%"
+                class="btn btn-danger"
+                (click)="delete(item.id)"
+                ><i class="fa fa-trash fa-lg"></i
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Add Resolution</h4>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #form="ngForm">
+            <div class="form-group">
+              <label>CAUSE</label>
+              <select
+                required
+                class="form-control"
+                name="el"
+                #el="ngModel"
+                [(ngModel)]="formData.cause"
+              >
+                <option value="Weather">Weather</option>
+                <option value="HumanFactor">Human Factor</option>
+                <option value="Failure">Failure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>SUB CAUSE</label>
+              <select
+                required
+                class="form-control"
+                name="el"
+                #el="ngModel"
+                [(ngModel)]="formData.subCause"
+              >
+                <option *ngIf="formData.cause === 'Weather'" value="Hurricane">Hurricane</option>
+                <option *ngIf="formData.cause === 'Weather'" value="Wind">Wind</option>
+                <option *ngIf="formData.cause === 'Weather'" value="Snow">Snow</option>
+                <option *ngIf="formData.cause === 'Weather'" value="Thunder">Thunder</option>
+                <option *ngIf="formData.cause === 'HumanFactor'" value="Forgetfulness">Forgetfulness</option>
+                <option *ngIf="formData.cause === 'HumanFactor'" value="Accident">Accident</option>
+                <option *ngIf="formData.cause === 'HumanFactor'" value="Negligence">Negligence</option>
+                <option *ngIf="formData.cause === 'Failure'" value="Malfunction">Malfunction</option>
+                <option *ngIf="formData.cause === 'Failure'" value="NotCalibrated">Not calibrated</option>
+                <option *ngIf="formData.cause === 'Failure'" value="Unreliability">Unreliability</option>
+
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Constriction</label>
+              <select
+                required
+                class="form-control"
+                name="el"
+                #el="ngModel"
+                [(ngModel)]="formData.construction"
+              >
+                <option value="UnderGround">UnderGround</option>
+                <option value="OverGround">OverGround</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Material</label>
+              <select
+                required
+                class="form-control"
+                name="el"
+                #el="ngModel"
+                [(ngModel)]="formData.material"
+              >
+                <option value="Metal">Metal</option>
+                <option value="Plastic">Plastic</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            [disabled]="form.invalid"
+            class="btn btn-danger btn-lg"
+            (click)="add()"
+          >
+            Add
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

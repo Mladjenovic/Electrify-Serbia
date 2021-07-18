@@ -1,0 +1,211 @@
+<div class="main">
+  <br /><br />
+  <div class="container text-center">
+    <span class="title">All calls</span>
+  </div>
+  <br /><br />
+  <button
+    *ngIf="
+      userService.userData.userType !== 'Administrator' &&
+      userService.userData.userType !== 'Worker'
+    "
+    class="btn-new btn btn-primary"
+    (click)="open(content)"
+  >
+    <i class="fa fa-plus-square">&nbsp;New</i>
+  </button>
+  <br />
+  <table class="table table-striped table-hover table-light text-center">
+    <thead>
+      <tr>
+        <th>Id&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Reason&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Hazard&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Comment&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Name&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Last name&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Address&nbsp;<i class="fa fa-sort"></i></th>
+        <th>Priority&nbsp;<i class="fa fa-sort"></i></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of service.list
+            | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <td>{{ item.id }}</td>
+        <td>{{ item.reason }}</td>
+        <td>{{ item.hazard }}</td>
+        <td>{{ item.comment }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.surName }}</td>
+        <td>{{ item.address }}</td>
+        <td>{{ item.priority }}</td>
+        <td>
+          <a
+            *ngIf="
+              userService.userData.userType !== 'Administrator' &&
+              userService.userData.userType !== 'Worker'
+            "
+            style="width: 45%"
+            class="btn btn-danger"
+            (click)="delete(item)"
+            ><i class="fa fa-trash fa-lg"></i></a
+          >&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 style="color: red" class="modal-title" id="modal-basic-title">
+        Report Problem
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #form="ngForm">
+        <div class="row">
+          <div class="form-group">
+            <label>Reason</label>
+            <select
+              class="form-control"
+              name="reason"
+              #reason="ngModel"
+              [(ngModel)]="service.formData.reason"
+              required
+            >
+              <option value="No electricity">No Electricity</option>
+              <option value="Malfunction">Malfunction</option>
+              <option value="Flickering lights">Flickering lights</option>
+              <option value="Electricity return">Electricity return</option>
+              <option value="Partial current">Partial current</option>
+              <option value="Voltage problems">Voltage problems</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Comment</label>
+            <input
+              class="form-control"
+              name="comment"
+              #comment="ngModel"
+              [(ngModel)]="service.formData.comment"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Hazard</label>
+            <input
+              class="form-control"
+              name="hazard"
+              #hazard="ngModel"
+              [(ngModel)]="service.formData.hazard"
+              required
+            />
+          </div>
+          <fieldset>
+            <legend>Customer Info</legend>
+            <div class="row col-md-12">
+              <div class="col col-md-9">
+                <div *ngIf="isSelect">
+                  <select
+                    style="width: 80%"
+                    class="form-control"
+                    name="user"
+                    #user="ngModel"
+                    [(ngModel)]="selectedUser"
+                  >
+                    <option
+                      *ngFor="let item of users"
+                      [ngValue]="item.email"
+                    >
+                      {{ item.email }}
+                    </option>
+                  </select>
+                  <button class="btn btn-danger" (click)="ok()">OK</button>
+                </div>
+              </div>
+
+              <div class="col col-md-3">
+                <span *ngIf="!isSelect" class="selectUser" (click)="select()"
+                  >Select user&nbsp;<i class="fa fa-user-plus fa-lg"></i
+                ></span>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="col col-md-6">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input
+                    class="form-control"
+                    name="name"
+                    #name="ngModel"
+                    [(ngModel)]="service.formData.name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Last name</label>
+                  <input
+                    class="form-control"
+                    name="last"
+                    #last="ngModel"
+                    [(ngModel)]="service.formData.surName"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col col-md-6">
+                <div class="form-group">
+                  <label>Address</label>
+                  <select
+                    (change)="addressChange()"
+                    class="form-control"
+                    name="address"
+                    #address="ngModel"
+                    [(ngModel)]="service.formData.address"
+                  >
+                    <option
+                      *ngFor="let item of settings.streets"
+                      [ngValue]="item.name"
+                    >
+                      {{ item.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Priority</label>
+                  <input
+                    class="form-control"
+                    readonly
+                    name="priority"
+                    #priority="ngModel"
+                    [(ngModel)]="service.formData.priority"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger btn-lg" (click)="report()">
+        Report
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,10 @@
+<div *ngIf="notifService.notifications.length > 0" class="notification-commands row">
+    <button type="button" class="btn btn-secondary col-sm-2 offset-sm-7 read-btn" (click)="readAll()">Mark all as read</button>            
+</div>
+<div *ngFor="let item of notifService.notifications" class="row">
+    <div (click)="readOne(item)" class="notification-item col-8 offset-1 info"  [ngClass]="{'notifRead' : item.isRead}">
+        <p><i class="fa fa-lg fa-info-circle"></i>{{item.description}}<span class="float-right">{{item.timestamp}}</span></p>
+
+    </div>
+    
+</div>

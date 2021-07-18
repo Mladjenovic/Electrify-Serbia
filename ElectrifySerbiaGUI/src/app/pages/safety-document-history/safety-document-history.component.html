@@ -1,0 +1,70 @@
+<div class="main">
+  <div class="row col-md-12">
+    <div class="col col-md-3">
+      <div class="row">
+        <div class="col-md-3 form-sections">
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('new')">Basic Information</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('element')">Devices</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('history')">History</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('multimedia')">Multimedia</a>
+          </div>
+          <div class="col-12 form-label">
+            <a class="btn btn-lg" (click)="changePath('checklist')">Checklist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-9">
+      <br /><br />
+      <div class="container text-center">
+        <span class="title">SAFETY DOCUMENT HISTORY</span>
+      </div>
+      <br /><br />
+      <div
+        class="row"
+        *ngIf="
+          service.formData.state === 'Drafted' &&
+          userService.userData.userType === 'Dispatcher'
+        "
+      >
+        <div class="col col-md-6">
+          <button class="btn btn-danger btn-lg" (click)="issue()">
+            <i class="fa fa-check fa-lg"></i>Issue
+          </button>
+        </div>
+        <div class="col col-md-6">
+          <button
+            style="float: right"
+            class="btn btn-dark btn-lg"
+            (click)="cancel()"
+          >
+            <i class="fa fa-times fa-lg"></i>Cancel
+          </button>
+        </div>
+      </div>
+      <table class="table text-center table-striped table-hover table-light">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>New state</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of service.formData.history">
+            <td>{{ item.email }}</td>
+            <td>{{ item.state }}</td>
+            <td>{{ item.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

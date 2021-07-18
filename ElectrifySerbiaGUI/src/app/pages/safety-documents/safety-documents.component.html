@@ -1,0 +1,281 @@
+<div class="main">
+  <br /><br />
+  <div class="container text-center">
+    <span class="title">All safety documents</span>
+  </div>
+  <br /><br /><br /><br />
+
+  <table class="search">
+    <tr>
+      <td style="width: 20%">
+        <div class="filter">
+          Filter by&nbsp;
+          <select [(ngModel)]="filter" (change)="filterChange()">
+            <option value="All">All</option>
+            <option value="Mine">Mine</option>
+          </select>
+        </div>
+      </td>
+      <td style="width: 30%">
+        <select class="form-control" [(ngModel)]="searchStatus">
+          <option value="" disabled hidden selected>Status...</option>
+          <option value="Drafted">Drafted</option>
+          <option value="Canceled">Canceled</option>
+          <option value="Executing">Executing</option>
+          <option value="Complited">Complited</option>
+        </select>
+      </td>
+      <td style="width: 30%">
+        <select class="form-control" [(ngModel)]="searchType">
+          <option value="" disabled hidden selected>Type...</option>
+          <option value="Planned">Planned</option>
+          <option value="Unplanned">Unplanned</option>
+        </select>
+      </td>
+      <td style="width: 10%">
+        <button style="width: 100%" (click)="search()" class="btn btn-info">
+          <i class="fa fa-search"></i>
+        </button>
+      </td>
+      <td style="width: 10%">
+        <button style="width: 100%" (click)="reset()" class="btn btn-info">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <br />
+  <br />
+  <a
+    *ngIf="userService.userData.userType === 'Dispatcher'"
+    (click)="open(content)"
+    class="btn-new btn btn-primary"
+    ><i class="fa fa-plus-square">&nbsp;NEW</i></a
+  >
+  <br />
+  <div class="scrollable" *ngIf="service.list.length > 0">
+    <table class="table text-center table-striped table-hover table-light">
+      <thead>
+        <tr>
+          <th class="sticky-col first-col" (click)="sort('id')">
+            ID&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th class="sticky-col second-col" (click)="sort('type')">
+            Type&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th (click)="sort('plan')">
+            Switching plan&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th (click)="sort('status')">
+            Status&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th (click)="sort('creator')">
+            Creator&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th (click)="sort('crew')">Crew&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('details')">
+            Details&nbsp;<i class="fa fa-sort"></i>
+          </th>
+          <th (click)="sort('notes')">Notes&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('phone')">Phone&nbsp;<i class="fa fa-sort"></i></th>
+          <th (click)="sort('date')">Date&nbsp;<i class="fa fa-sort"></i></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let item of service.list
+              | paginate: { itemsPerPage: 10, currentPage: p }
+          "
+          (dblclick)="details(item)"
+        >
+          <td class="sticky-col first-col">{{ item.id }}</td>
+          <td class="sticky-col second-col">{{ item.type }}</td>
+          <td>{{ item.switchingPlan }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.creator }}</td>
+          <td>{{ item.crew }}</td>
+          <td>{{ item.details }}</td>
+          <td>{{ item.notes }}</td>
+          <td>{{ item.phone }}</td>
+          <td>{{ item.date }}</td>
+          <td>
+            <a
+              *ngIf="userService.userData.userType === 'Dispatcher'"
+              style="width: 45%"
+              class="btn btn-danger"
+              (click)="delete(item)"
+              ><i class="fa fa-trash fa-lg"></i></a
+            >&nbsp;
+            <a style="width: 45%" class="btn btn-info" (click)="details(item)"
+              ><i class="fa fa-info-circle fa-lg"></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls
+    *ngIf="service.list.length > 0"
+    (pageChange)="p = $event"
+  ></pagination-controls>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Document</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #form="ngForm">
+        <div class="row">
+          <div class="col col-md-6">
+            <div class="form-group">
+              <label>TYPE</label>
+              <select
+                required
+                class="form-control"
+                name="type"
+                #type="ngModel"
+                [(ngModel)]="service.formData.type"
+              >
+                <option value="Planned">Planned work</option>
+                <option value="Unplanned">Uplanned work</option>
+              </select>
+            </div>
+
+            <!-- <div class="form-group">
+              <label>SWITCHING PLAN</label>
+              <select
+                required
+                class="form-control"
+                name="plan"
+                #plan="ngModel"
+                [(ngModel)]="service.formData.switchingPlan"
+              >
+                <option
+                  *ngFor="let item of workPlanService.list"
+                  [ngValue]="item.id"
+                >
+                  {{ item.id }}
+                </option>
+              </select>
+            </div> -->
+            <div class="form-group">
+              <label>STATUS</label>
+              <select
+                class="form-control"
+                disabled
+                name="status"
+                type="text"
+                #status="ngModel"
+                [(ngModel)]="service.formData.status"
+              >
+                <option value="Drafted">Drafted</option>
+                <option value="Canceled">Canceled</option>
+                <option value="Executing">Executing</option>
+                <option value="Complited">Complited</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>CREATOR</label>
+              <input
+                readonly
+                class="form-control"
+                type="text"
+                name="creator"
+                #creator="ngModel"
+                [(ngModel)]="service.formData.creator"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>CREW</label>
+              <select
+                required
+                class="form-control"
+                type="text"
+                name="crew"
+                #crew="ngModel"
+                [(ngModel)]="service.formData.crew"
+              >
+                <option
+                  *ngFor="let item of crewService.list"
+                  [ngValue]="item.name"
+                >
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col col-md-6">
+            <div class="form-group">
+              <label>Details</label>
+              <input
+                required
+                class="form-control"
+                type="text"
+                name="details"
+                #details="ngModel"
+                [(ngModel)]="service.formData.details"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Notes</label>
+              <input
+                required
+                class="form-control"
+                type="text"
+                name="notes"
+                #notes="ngModel"
+                [(ngModel)]="service.formData.notes"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Phone</label>
+              <input
+                required
+                class="form-control"
+                type="text"
+                name="phone"
+                #phone="ngModel"
+                [(ngModel)]="service.formData.phone"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Date</label>
+              <input
+                required
+                class="form-control"
+                type="date"
+                name="date"
+                #date="ngModel"
+                [(ngModel)]="service.formData.date"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        [disabled]="form.invalid"
+        class="btn btn-success btn-lg"
+        (click)="save()"
+      >
+        ADD
+      </button>
+    </div>
+  </ng-template>
+</div>
